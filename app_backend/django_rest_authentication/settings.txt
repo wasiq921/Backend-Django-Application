@@ -1,0 +1,178 @@
+import os
+from datetime import timedelta
+INSTALLED_APPS += [
+
+    'django.contrib.sites',
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
+    'rest_framework.authtoken',
+    'rest_framework',
+    'corsheaders',
+    
+    'django_rest_authentication.authentication.django_rest_passwordreset',
+    'django_rest_authentication.dj_rest_auth',
+    'django_rest_authentication.dj_rest_auth.registration',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.apple',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
+]
+CALLBACK_URL_YOU_SET_ON_GOOGLE = "http://127.0.0.1:8000/dashboard/"
+CALLBACK_URL_YOU_SET_ON_FACEBOOK = 'http://localhost:8000/'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_URL = '/media/'
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+       'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1440),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': False,
+    'UPDATE_LAST_LOGIN': False,
+
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'VERIFYING_KEY': None,
+    'AUDIENCE': None,
+    'ISSUER': None,
+    'JWK_URL': None,
+    'LEEWAY': 0,
+
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+    'USER_AUTHENTICATION_RULE': 'rest_framework_simplejwt.authentication.default_user_authentication_rule',
+
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_TYPE_CLAIM': 'token_type',
+    'TOKEN_USER_CLASS': 'rest_framework_simplejwt.models.TokenUser',
+    "TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.MyTokenObtainPairSerializer",
+
+    'JTI_CLAIM': 'jti',
+
+    'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
+    'SLIDING_TOKEN_LIFETIME': timedelta(days=1),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+}
+REST_AUTH = {
+    'LOGIN_SERIALIZER': 'django_rest_authentication.dj_rest_auth.serializers.LoginSerializer',
+    'TOKEN_SERIALIZER': 'rest_framework_simplejwt.serializers.TokenObtainPairSerializer',
+    'JWT_SERIALIZER': 'django_rest_authentication.dj_rest_auth.serializers.JWTSerializer',
+    'JWT_SERIALIZER_WITH_EXPIRATION': 'django_rest_authentication.dj_rest_auth.serializers.JWTSerializerWithExpiration',
+    'JWT_TOKEN_CLAIMS_SERIALIZER': 'rest_framework_simplejwt.serializers.TokenObtainPairSerializer',
+    'USER_DETAILS_SERIALIZER': 'django_rest_authentication.dj_rest_auth.serializers.UserDetailsSerializer',
+    'PASSWORD_RESET_SERIALIZER': 'django_rest_authentication.dj_rest_auth.serializers.PasswordResetSerializer',
+    'PASSWORD_RESET_CONFIRM_SERIALIZER': 'django_rest_authentication.dj_rest_auth.serializers.PasswordResetConfirmSerializer',
+    # 'PASSWORD_CHANGE_SERIALIZER': 'dj_rest_auth.serializers.PasswordChangeSerializer',
+    'PASSWORD_CHANGE_SERIALIZER': 'django_rest_authentication.authentication.serializers.CustomPasswordChangeSerializer',
+    'REGISTER_SERIALIZER': 'django_rest_authentication.dj_rest_auth.registration.serializers.RegisterSerializer',
+
+    'REGISTER_PERMISSION_CLASSES': ('rest_framework.permissions.AllowAny',),
+
+    'TOKEN_MODEL': None,
+    'TOKEN_CREATOR': 'django_rest_authentication.dj_rest_auth.utils.default_create_token',
+
+    'PASSWORD_RESET_USE_SITES_DOMAIN': False,
+    'OLD_PASSWORD_FIELD_ENABLED': True,
+    'LOGOUT_ON_PASSWORD_CHANGE': True,
+    'SESSION_LOGIN': True,
+    'USE_JWT': True,
+
+    'JWT_AUTH_COOKIE': None,
+    'JWT_AUTH_REFRESH_COOKIE': None,
+    'JWT_AUTH_REFRESH_COOKIE_PATH': '/',
+    'JWT_AUTH_SECURE': False,
+    'JWT_AUTH_HTTPONLY': False,
+    'JWT_AUTH_SAMESITE': 'Lax',
+    'JWT_AUTH_RETURN_EXPIRATION': False,
+    'JWT_AUTH_COOKIE_USE_CSRF': False,
+    'JWT_AUTH_COOKIE_ENFORCE_CSRF_ON_UNAUTHENTICATED': False,
+}
+
+"""This SITE_ID belongs to model of app 'django.contrib.sites' 
+on running Auth fixtures from command 
+python3 manage.py loaddata django_rest_authentication/authentication/fixtures/initial_data.json
+this will create Object of PK = 2 127.0.0.1 """
+SITE_ID = 2
+#The purpose of this SITE is to run Google and Facebook Auth from backend
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:3006',
+    'http://127.0.0.1:8000'
+)
+CORS_ALLOW_METHODS = [
+    "DELETE","GET","OPTIONS",
+    "PATCH","POST","PUT",
+]
+CORS_ALLOW_HEADERS = [
+    "accept","accept-encoding","authorization",
+    "content-type","dnt","origin","user-agent",
+    "x-csrftoken","x-requested-with",
+    "cache-control","pragma",
+]
+CALLBACK_URL_YOU_SET_ON_GOOGLE = "http://127.0.0.1:8000/dashboard/"
+CALLBACK_URL_YOU_SET_ON_FACEBOOK = 'http://localhost:8000/'
+# Provider specific settings
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        },
+        'OAUTH_PKCE_ENABLED': True,
+    },
+    'facebook':
+       {'METHOD': 'oauth2',
+        'SCOPE': ['email','public_profile', 'user_friends'],
+        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'FIELDS': [
+            'id',
+            'email',
+            'name',
+            'first_name',
+            'last_name',
+            'verified',
+            'locale',
+            'timezone',
+            'link',
+            'gender',
+            'updated_time'],
+        'EXCHANGE_TOKEN': True,
+        'LOCALE_FUNC': lambda request: 'kr_KR',
+        'VERIFIED_EMAIL': False,
+        'VERSION': 'v2.4'}
+}
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'nftpresale123@gmail.com'
+EMAIL_HOST_PASSWORD = 'xjggtvcdyvegcole'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+USER_DEFINED_USERNAME = False
+ENABLE_CONFIRM_PASSWORD = True 
+ENABLE_LAST_NAME = False 
+EMAIL_AS_USERNAME = True

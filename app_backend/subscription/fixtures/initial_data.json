@@ -1,0 +1,76 @@
+[
+    
+    {
+        "model": "subscription.plan",
+        "pk": 1,
+        "fields": {
+            "name": "Free",
+            "description": "Free Plan",
+            "meta": null
+        }
+    },
+    {
+        "model": "subscription.plan",
+        "pk": 3,
+        "fields": {
+            "name": "Standard",
+            "description": "Standard Plan",
+            "meta": null
+            
+        }
+    },
+    {
+        "model": "subscription.plan",
+        "pk": 2,
+        "fields": {
+            "name": "Pro",
+            "description": "Pro Plan",
+            "meta": null
+        }
+    },
+    
+    {
+        "model": "subscription.plancharges",
+        "pk": 1,
+        "fields": {
+            "i_plan": 1,
+            "code": "Free",
+            "charges_type": "monthly",
+            "description": "",
+            "meta": null,
+            "price": 0.0
+        }
+    },
+    {
+        "model": "subscription.plancharges",
+        "pk": 2,
+        "fields": {
+            "i_plan": 2,
+            "code": "Standard",
+            "charges_type": "monthly",
+            "description": "",
+            "meta": null,
+            "price": 10.0
+        }
+    },
+    {
+        "model": "subscription.plancharges",
+        "pk": 3,
+        "fields": {
+            "i_plan": 3,
+            "code": "Pro",
+            "charges_type": "monthly",
+            "description": "",
+            "meta": null,
+            "price": 25.0
+        }
+    },
+    {
+        "model": "user_management.role",
+        "pk": 1,
+        "fields": {
+            "name": "user",
+            "display_name": "user"
+        }
+    }
+]
